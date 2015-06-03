@@ -3,7 +3,10 @@ CLI-CALCULATOR
 A simple command-line calculator.
 
 You can execute the "build.sh" script to build the calculator :
+chmod +x build.sh
 sudo build.sh
+Or use the make command :
+make
 
 Examples of utilisations :
 tcalc 12+8
