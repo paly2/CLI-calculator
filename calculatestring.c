@@ -1,7 +1,6 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "stringtonumber.h"
 #include "calculatestring.h"
 
 int calculatestring(const char *string, long *total_l, double *total_d){
