@@ -4,7 +4,7 @@
 #include "calculatestring.h"
 
 int main(int argc, char *argv[]){
-	char expression[100];
+	char expression[100] = "";
 	int i = 0;
 	double total_d;
 	long total_l;

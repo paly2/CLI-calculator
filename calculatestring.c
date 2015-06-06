@@ -1,23 +1,45 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "stringtonumber.h"
 #include "calculatestring.h"
 
 int calculatestring(const char *string, long *total_l, double *total_d){
 	int i1 = 0, i2 = 0, i3 = 0, end_priority = 0;
-	char string_priority[100] = "", spaces_string[100] = "";
+	char string_priority[100] = "";
 	long table_calc_numbers_l[70] = {0};
 	double table_calc_numbers_d[70] = {0.0};
 	char table_calc_ops[70] = {0};
 	int d = 0;
 	char *pointer_interm = NULL;
+	double param_for_functions = 0;
 	
 	if(strchr(string, '.') != NULL)
 		d = 1;
 	while(i1 < strlen(string)){
 		if(string[i1] != ' '){//ignore spaces
 			if(strchr("0123456789*/%+-()", string[i1]) == NULL){//Bad character !
-				return EXIT_FAILURE;
+				if(string[i1] >= 'a' && string[i1] <= 'z'){// Test if this is a function
+					if(!d){
+						param_for_functions = (double) table_calc_numbers_l[i3];
+						if(functions(string+i1, &i1, &param_for_functions) == EXIT_FAILURE){
+							return EXIT_FAILURE;
+						}
+						table_calc_numbers_l[i3] = (long) param_for_functions;
+					}
+					else{
+						if(functions(string+i1, &i1, table_calc_numbers_d+i3) == EXIT_FAILURE){
+							return EXIT_FAILURE;
+						}
+					}
+					if(i1 < strlen(string))
+						table_calc_ops[i3] = string[i1];
+					i1++;
+					i3++;
+				}
+				else{
+					return EXIT_FAILURE;
+				}
 			}
 			else{			
 				if(string[i1] == '('){
